@@ -1,9 +1,11 @@
 import operation.Operation;
+import repository.Repository;
 import utils.CheckUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -72,7 +74,6 @@ public class Application {
         Operation operation = new Operation();
         Class<?> clazz = Class.forName("operation.Operation");
 
-
         boolean isLoop = true;
         while (isLoop) {
             String selectedOperation = scanner.next().trim();
@@ -86,6 +87,7 @@ public class Application {
             Method method = clazz.getMethod(methodName);
             method.invoke(operation);
         }
+        operation.closeConnection();
     }
 
 }

@@ -104,4 +104,8 @@ public class StudentService {
             break;
         }
     }
+
+    public void closeConnection() {
+        studentRepository.closeConnection();
+    }
 }

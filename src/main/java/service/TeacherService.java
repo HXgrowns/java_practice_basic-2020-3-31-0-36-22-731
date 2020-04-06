@@ -61,4 +61,8 @@ public class TeacherService {
             break;
         }
     }
+
+    public void closeConnection() {
+        teacherRepository.closeConnection();
+    }
 }

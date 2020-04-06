@@ -126,4 +126,8 @@ public class StudentRepository extends Repository {
         }
         return 0;
     }
+
+    public void closeConnection() {
+        super.closeConnection();
+    }
 }

@@ -61,4 +61,8 @@ public class TeacherRepository extends Repository {
         }
         return null;
     }
+
+    public void closeConnection() {
+        super.closeConnection();
+    }
 }

@@ -108,4 +108,8 @@ public class CourseService {
             break;
         }
     }
+
+    public void closeConnection() {
+        courseRepository.closeConnection();
+    }
 }

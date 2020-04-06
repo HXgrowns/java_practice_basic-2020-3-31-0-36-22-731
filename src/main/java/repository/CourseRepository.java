@@ -111,4 +111,8 @@ public class CourseRepository extends Repository {
         return false;
     }
 
+    public void closeConnection() {
+        super.closeConnection();
+    }
+
 }

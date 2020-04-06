@@ -64,4 +64,8 @@ public class Operation {
     public void deleteTeacher() {
         teacherService.deleteTeacher();
     }
+
+    public void closeConnection() {
+        studentService.closeConnection();
+    }
 }
