@@ -1,27 +1,22 @@
-public class Student {
+package entity;
+
+public class Teacher {
     private int number;
     private String name;
     private int age;
     private String sex;
-    private float score;
+    private String courseName;
 
-    public Student(int number, String name, int age, String sex) {
+    public Teacher(int number, String name, int age, String sex, String courseName) {
         this.number = number;
         this.name = name;
         this.age = age;
         this.sex = sex;
+        this.courseName = courseName;
     }
 
-    public Student(int number, String name, int age, String sex, float score) {
-        this.number = number;
-        this.name = name;
-        this.age = age;
-        this.sex = sex;
-        this.score = score;
-    }
-
-    public float getScore() {
-        return score;
+    public String getCourseName() {
+        return courseName;
     }
 
     public int getNumber() {
@@ -42,9 +37,10 @@ public class Student {
 
     @Override
     public String toString() {
-        return "学号： " + number +
+        return "工号： " + number +
                 ", 姓名：" + name +
                 ", 年龄：" + age +
-                ", 性别：" + sex;
+                ", 性别：" + sex +
+                ", 授课科目：" + courseName;
     }
 }

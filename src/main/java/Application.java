@@ -1,3 +1,10 @@
+import operation.Operation;
+import utils.CheckUtils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Application {
@@ -27,7 +34,28 @@ public class Application {
             "      4.3 删除指定老师 ";
     private final static String USER_PASSWORD_ERROR = "用户名或密码输入错误，请重新输入";
 
-    public static void main(String[] args) {
+    private final static Map<String, String> CODE_TO_METHOD = new HashMap<>();
+
+    static {
+        CODE_TO_METHOD.put("1.1.1", "queryAllStudent");
+        CODE_TO_METHOD.put("1.1.2", "queryAllCourseByStudentName");
+        CODE_TO_METHOD.put("1.1.3", "queryAllStudentAndScoreByTeacher");
+        CODE_TO_METHOD.put("1.2.1", "queryAllCourse");
+        CODE_TO_METHOD.put("1.2.2", "queryByCourseName");
+        CODE_TO_METHOD.put("1.2.3", "queryCourseByteacher");
+        CODE_TO_METHOD.put("1.3.1", "queryAllTeacher");
+        CODE_TO_METHOD.put("1.3.2", "queryByTeacherName");
+
+        CODE_TO_METHOD.put("2.1", "insertStudent");
+        CODE_TO_METHOD.put("2.2", "insertCourse");
+        CODE_TO_METHOD.put("3.1", "updateScorebyStudentAndCourse");
+        CODE_TO_METHOD.put("4.1", "deleteStudent");
+        CODE_TO_METHOD.put("4.2", "deleteCourse");
+        CODE_TO_METHOD.put("4.3", "deleteTeacher");
+    }
+
+
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         System.out.println(HOME_INFO);
         Scanner scanner = new Scanner(System.in);
 
@@ -41,59 +69,23 @@ public class Application {
         }
         System.out.println(SUPER_USER_INFO);
 
+        Operation operation = new Operation();
+        Class<?> clazz = Class.forName("operation.Operation");
+
+
         boolean isLoop = true;
-        Operate operate = new Operate();
         while (isLoop) {
-            String selectedOperate = scanner.next().trim();
-            switch (selectedOperate) {
-                case "1.1.1":
-                    operate.operate1_1_1();
-                    break;
-                case "1.1.2":
-                    operate.operate1_1_2();
-                    break;
-                case "1.1.3":
-                    operate.operate1_1_3();
-                    break;
-                case "1.2.1":
-                    operate.operate1_2_1();
-                    break;
-                case "1.2.2":
-                    operate.operate1_2_1();
-                    break;
-                case "1.2.3":
-                    operate.operate1_2_3();
-                    break;
-                case "1.3.1":
-                    operate.operate1_3_1();
-                    break;
-                case "1.3.2":
-                    operate.operate1_3_2();
-                    break;
-                case "2.1":
-                    operate.operate2_1();
-                    break;
-                case "2.2":
-                    operate.operate2_2();
-                    break;
-                case "3.1":
-                    operate.operate3_1();
-                    break;
-                case "4.1":
-                    operate.operate4_1();
-                    break;
-                case "4.2":
-                    operate.operate4_2();
-                    break;
-                case "4.3":
-                    operate.operate4_3();
-                    break;
-                default:
-                    isLoop = false;
-                    break;
+            String selectedOperation = scanner.next().trim();
+            String methodName = CODE_TO_METHOD.getOrDefault(selectedOperation, null);
+            if (methodName == null) {
+                System.out.println("拜拜了");
+                isLoop = false;
+                break;
             }
+
+            Method method = clazz.getMethod(methodName);
+            method.invoke(operation);
         }
-        operate.closeConnect();
     }
 
 }
